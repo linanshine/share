@@ -17,7 +17,7 @@
         <v-card flat v-if='!loading'>
           <v-card-title primary-title class='text-xs-center'>
             <div>
-              <h3 class="headline mb-0">批量分享还可以添加个'100个帅哥'刷屏图</h3>
+              <h3 class="headline mb-0">批量分享还可以添加个'21212'刷屏图</h3>
               <div>点击按钮切换刷屏图二维码类型</div>
             </div>
           </v-card-title>
