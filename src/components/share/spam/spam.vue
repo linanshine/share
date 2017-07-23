@@ -4,13 +4,13 @@
       <v-flex xs12 sm12 md6 offset-md3>
         <v-card>
           <v-card-text class="grey lighten-5 text-xs-left">
-            请添加您要分享的刷屏图（最多8张）
-            <v-text-field name="input-3-4" label="备注" single-line></v-text-field>
+            请添加您要分享的刷屏图<span style="color: #999; font-size: 0.6rem;">（最多可添加8张）</span>
+            <v-text-field style='font-size:0.7rem; color:#666;' name="input-3-4" label="备注" single-line></v-text-field>
           </v-card-text>
           <v-card-text style=" position: relative">
             <v-fab-transition>
-              <v-btn class="pink" dark absolute top left fab @click='handleAdd'>
-                <v-icon>add</v-icon>
+              <v-btn class="pink" dark absolute small top left fab @click='handleAdd'>
+                <v-icon class='add'>+</v-icon>
               </v-btn>
             </v-fab-transition>
           </v-card-text>
@@ -18,23 +18,23 @@
             <v-layout row wrap>
               <v-flex v-bind="{ [`xs${card.flex}`]: true }" v-for="card in selectArr" :key="card.title">
                 <v-card>
-                  <v-card-media :src="card.src" height="200px">
-                    <v-container fill-height fluid>
-                      <v-layout fill-height>
-                        <v-flex xs12 align-end flexbox>
-                          <span class="headline white--text" v-text="card.title"></span>
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
+                  <v-card-media :src="card.src" height="150px">
+                       <v-container fill-height fluid>
+                          <v-layout fill-height>
+                            <v-flex xs12 align-start flexbox>
+                              <span class=" white--text" v-text="card.title"></span>
+                            </v-flex>
+                          </v-layout>
+                        </v-container>
                   </v-card-media>
                   <v-card-actions class="white">
-                    <v-btn @click='handleInfoClick(card)'>
-                    详情
+                    <v-spacer></v-spacer>
+                    <v-btn icon  @click='handleInfoClick(card)'>
+                      <v-icon>sort</v-icon>
                     </v-btn>
-                     <v-btn @click='handleDeleteClick(card)'>
-                    删除
+                    <v-btn icon @click='handleDeleteClick(card)'>
+                      <v-icon>clear</v-icon>
                     </v-btn>
-                  
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -54,6 +54,7 @@ export default {
   data() {
     return this.$store.state.shareSpam
   },
+
   methods: {
     handleInfoClick(card){
       this.$router.push({path:'/share/spam/info',query:card})
@@ -63,7 +64,28 @@ export default {
          this.$emit('xxd')
     },
     handleShareClike(){
-      alert('立即分享')
+      if(this.selectArr.length<=0){
+        util.showDialogPlug('未选择分享刷屏图', '好的')
+        return;
+      }
+      leadeon.enableShared({
+                debug: false,
+                enable: true,
+                shareObj: {
+                    title: '模块一分享',
+                    link: "",
+                    imgUrl: "",
+                    content:"",
+                    type: '',
+                    dataUrl: ''
+                },
+                success: function (res) {
+                    return;
+                },
+                error: function (res) {
+                    return;
+                }
+            })
     },
     handleAdd() {
       this.$router.push('/share/spam/select')
@@ -72,3 +94,24 @@ export default {
 }
 
 </script>
+
+<style scoped>
+.btn--floating .btn__content .icon{
+    color: #fff;
+  }
+
+.footer{
+    width: 100%;
+    padding: 2rem 1rem;
+    left: 0;
+    margin-top: 1rem;
+    background-color: #fff;
+}
+
+.footer>button{
+      width: 100%;
+    margin: 0 auto !important;;
+    background-color: #0085d0;
+    color: #fff;
+}
+</style>

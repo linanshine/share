@@ -1,0 +1,333 @@
+html,body{height:100%;width: 100%;position: absolute;top: 0px;bottom:0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+html{font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-size:62.5%;line-height:1.5;}
+body{margin:0;color:#333;background-color:#fff;}
+body, html, div, ul, li, h5, p, img , button, header, footer{ padding: 0; margin: 0;}
+ul,li { list-style: none;}
+img { border: 0; vertical-align: middle;}
+a{background:transparent;text-decoration:none;-webkit-tap-highlight-color:transparent;color:#08c;}
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+.clearfix:before,.clearfix:after{content:"";display:table;}
+.clearfix:after{clear:both;}
+.clear { clear: both; height: 0px;}
+
+/***超出一行用...省略***/
+.ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    -webkit-text-overflow: ellipsis
+}
+
+/***超出两行用...省略***/
+.elli-two {
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/*********************/
+/*******************弹出框插件样式**/
+.load-plug .loading {
+    border: 1px solid #159DEB;
+    border-right: 1px solid #D1EFFF;
+    border-bottom: 1px solid #D1EFFF;
+    height: 12px;
+    width: 12px;
+    margin: auto;
+    border-radius: 50%;
+    -webkit-animation: loading .5s infinite linear;
+    animation: loading .5s infinite linear;
+}
+
+@-webkit-keyframes loading {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.load-plug, .dialog-plug {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    color: #333333;
+}
+
+.load-plug {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dialog-plug {
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr='#7F000000', endColorstr='#7F000000');
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.load-plug .o-lay, .dialog-plug .d-lay {
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.load-plug .o-wrap, .dialog-plug .d-wrap {
+    width: 100%;
+    height: 100%;
+    display: table;
+}
+
+.load-plug .o-wrap {
+    text-align: center;
+}
+
+.load-plug .load-img {
+    width: 1.5em;
+    position: relative;
+    top: -2.5em;
+}
+
+@media screen and (min-width: 414px) {
+    .dialog-plug .d-con {
+        max-width: 340px !important;
+    }
+
+    #confirmPlug #inform {
+        width: 340px !important;
+    }
+}
+
+.dialog-plug .d-con {
+    width: 70%;
+    max-width: 280px;
+    background-color: #FFFFFF;
+    margin: auto;
+    border-radius: .4em;
+    position: relative;
+    top: -2.5em;
+}
+
+.dialog-plug .d-tex, .dialog-plug .d-btn {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.dialog-plug .d-tex {
+    font-size: 14px;
+    padding-left: 1em;
+    padding-right: 1em;
+    line-height: 1.3em;
+    color: #333333;
+}
+
+.dialog-plug .d-btn {
+    cursor: pointer;
+    color: #005EC8;
+    font-size: 14px;
+    text-align: center;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-weight: normal;
+    font-size: 100%;
+}
+
+strong {
+    font-weight: normal;
+}
+
+em {
+    font-style: normal;
+}
+
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/*去除input获取焦点边框*/
+input {
+    outline: none;
+}
+
+/*placeholder文字居中*/
+input[placeholder] {
+    line-height: normal;
+}
+
+/*重置button*/
+button {
+    border: 0 none;
+    color: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+/*英文数字断行*/
+.word-break {
+    word-break: break-all;
+}
+
+/*删除线*/
+.line-through {
+    text-decoration: line-through;
+}
+
+/*红色文字*/
+.c1 {
+    color: #e40017;
+}
+
+.c2 {
+    color: #e36d6d;
+}
+
+/*选中文字颜色*/
+.tab-list .current, .od-ipt:checked + .od-radio:before {
+    color: #0085cf;
+}
+
+/*默认边框颜色*/
+.productlist-item, .search-box, .larger-view .productlist-intro, .sift-list-item, .price-ipt, .sift-btn-wrap, .public-bg1, .od-bg2, .od-tit1, .od-list1, .od-list3, .public-list1-item, .address-form li, .invoice-form li, .invoice-title, .search-history-tit, .search-history-item, .search-history-clear, .public-btn1-wrap {
+    border-color: #ebebeb;
+    border-style: solid;
+}
+
+/*高亮边框颜色*/
+.tab-list .current, .sift-list .selected, .od-ipt:checked + .od-radio:before {
+    border-color: #0085cf;
+    border-style: solid;
+}
+
+/*按钮背景颜色*/
+.public-btn1, .sift-btn {
+    background-color: #0085cf;
+}
+
+/*textarea*/
+.textarea1 {
+    resize: none;
+    border: none;
+    padding: 5px;
+    font-size: 14px;
+}
+
+/*背景100%*/
+.bgsz100, .icon-up, .sift-select, .od-tit1:before, .icon-check, .icon-consignee:before, .icon-arrow-right:before {
+    -webkit-background-size: 100% !important;
+    background-size: 100% !important;
+}
+
+/*flex布局*/
+.flex-parent, .tab-list, .search-wrap, .search-box, .list-view .productlist-item, .input-warp, .input-box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flex-child-equal, .tab-list-item, .search-box, .search-input, .list-view .productlist-detail, .input-box {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+/*水平垂直居中*/
+.flex-center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    /*水平居中*/
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+
+    /*垂直居中*/
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.flex-justify {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+
+/*border-box盒模型*/
+.border-box, .larger-view, .productlist-item, .sift-content, .sift-list-item, .price-ipt, .public-btn1-wrap, .public-list1-item, .invoice-form label, .textarea1 {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+/*自定义*/
+.w-100 {
+    width: 100%;
+    display: block;
+}
+
+.alignCenter {
+    text-align: center;
+}
+
+.alpha {
+    height: 100% !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+.alpha body {
+    height: 100% !important;
+    overflow: hidden !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.visHid {
+    visibility: hidden;
+}
+
+.loaddingTip,.isLoadding {
+    width: 100%;
+    text-align: center;
+    color: #b1b1b1;
+    margin: 1rem 0;
+    background-color: transparent;
+    font-size: 0.5rem;
+}

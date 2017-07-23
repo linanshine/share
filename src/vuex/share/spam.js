@@ -1,12 +1,14 @@
 const shareSpam = {
   state: {
     selectArr: [],
+    lastSelectNum:8,
     smallCount: 0,
     bigCount: 0,
     bigOrSmall: true,
     loading: true,
     cardsBig: [{
         title: '我是id1',
+        subtitle: '商品',
         badge: {
           value: '',
           left: true
@@ -21,6 +23,7 @@ const shareSpam = {
       },
       {
         title: '我是id2',
+        subtitle: '商品',
         badge: {
           value: '',
           left: true
@@ -36,6 +39,7 @@ const shareSpam = {
     ],
     cardsSmall: [{
         title: '流量快餐包',
+        subtitle: '商品',
         badge: {
           value: '',
           left: true
@@ -50,6 +54,7 @@ const shareSpam = {
       },
       {
         title: '12121',
+        subtitle: '商品',
         badge: {
           value: '',
           left: true
@@ -64,6 +69,7 @@ const shareSpam = {
       },
       {
         title: '333',
+        subtitle: '商品',
         badge: {
           value: '',
           left: true
@@ -78,6 +84,7 @@ const shareSpam = {
       },
       {
         title: '流量安心包',
+        subtitle: '商品',
         count: 0,
         badge: {
           value: '',
@@ -109,11 +116,18 @@ const shareSpam = {
         commit('deleteSelectArr', item)
         resolve()
       })
+    },
+    updateCardsList({ commit }, item) {
+      return new Promise((resolve, reject) => {
+        commit('updateCardsList', item)
+        resolve()
+      })
     }
   },
   mutations: {
     pushSelectArr(state, arr) {
       state.selectArr = arr;
+      state.lastSelectNum -= state.selectArr.length;
     },
     deleteSelectArr(state, card) {
       if (card.flag == 'small') {
@@ -123,10 +137,10 @@ const shareSpam = {
             card.check = false;
             card.badge.value = '';
             i--;
+            state.lastSelectNum++;
           } else {
             state.selectArr[i].badge.value = i + 1;
           }
-
         }
       } else {
         for (let i = 0; i < state.selectArr.length; i++) {
@@ -135,17 +149,17 @@ const shareSpam = {
             card.check = false;
             card.badge.value = '';
             i--;
+            state.lastSelectNum++;
           } else {
             state.selectArr[i].badge.value = i + 1;
           }
-
         }
       }
-
-
-
-
-    }
+    },
+    updateCardsList(state, obj) {
+      state.cardsBig = [...obj.bigList];
+      state.cardsSmall = [...obj.smaillList];
+    },
   }
 }
 export default shareSpam
