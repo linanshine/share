@@ -1,0 +1,45 @@
+{
+
+  "resCode": "200",
+  "resBody":
+  {
+    "smaillList": [
+    {
+      "id": 1,
+      "picName": "流量快餐包111",
+      "smallPicPath": "static/share/img/imgad1.png",
+      "productName": "流量快餐包111",
+      "productImage": "static/share/img/list-Img1.jpg",
+      "productPrice": "20",
+      "releaseTime": "2017.07.30"
+    },
+    {
+      "id": 2,
+      "picName": "流量快餐包2222",
+      "smallPicPath": "static/share/img/imgad1.png",
+      "productName": "流量快餐包2222",
+      "productImage": "static/share/img/list-Img1.jpg",
+      "productPrice": "21",
+      "releaseTime": "2017.07.30"
+    }],
+    "bigList": [
+    {
+      "id": 1,
+      "picName": "流量快餐包3",
+      "bigPicPath": "static/share/img/imgad1.png",
+      "productName": "流量快餐包3",
+      "productImage": "static/share/img/list-Img1.jpg",
+      "productPrice": "22",
+      "releaseTime": "2017.07.30"
+    },
+    {
+      "id": 2,
+      "picName": "流量快餐包4",
+      "bigPicPath": "static/share/img/imgad1.png",
+      "productName": "流量快餐包4",
+      "productImage": "static/share/img/list-Img1.jpg",
+      "productPrice": "23",
+      "releaseTime": "2017.07.30"
+    }]
+  }
+}

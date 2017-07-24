@@ -3,10 +3,10 @@
     <v-tabs fixed light centered @input='handleTabsSelect'>
       <v-tabs-bar slot="activators" style='background-color: #fff' light>
         <v-tabs-slider class="#0085d0"></v-tabs-slider>
-        <v-tabs-item href="#tab-1">
+        <v-tabs-item href="#tab-1" style='font-size: 0.7rem'>
           小图
         </v-tabs-item>
-        <v-tabs-item href="#tab-2">
+        <v-tabs-item href="#tab-2" style='font-size: 0.7rem'>
           大图
         </v-tabs-item>
       </v-tabs-bar>
@@ -17,52 +17,51 @@
         <v-card flat v-if='!loading'>
           <v-card-title class='text-xs-center' style='background-color: #F6F6F6'>
             <div style="width: 100%">
-              <h5 class="mb-0 text-xs-center">批量分享还可以添加个<span>{{lastSelectNum}}</span>刷屏图</h5>
+              <h5 class="mb-0 text-xs-center">批量分享还可以添加<span class="text--darken-1 pink--text">{{lastSelectNum}}个</span>刷屏图</h5>
               <h6 class="mb-0 text-xs-center">点击按钮切换刷屏图二维码类型</h6>
             </div>
           </v-card-title>
           <v-card-text>
             <!-- 大图 -->
             <v-list v-if='bigOrSmall' two-line subheader>
-              <v-list-tile @click='handleBigSelect(item)' v-for="item in cardsBig" v-bind:key="item.title">
+              <v-list-tile v-for="item in cardsBig" v-bind:key="item.productName">
                 <v-list-tile-avatar>
-                  <v-icon large v-badge="item.badge" class="grey--text text--lighten-1">{{item.icon}}</v-icon>
+                  <v-icon large v-badge="item.badge" @click='handleBigSelect(item)' class="grey--text text--lighten-1"><img :src="item.productImage"></v-icon>
                 </v-list-tile-avatar>
                 <v-list-tile-content>
-                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                  <v-list-tile-sub-title class="grey--text text--darken-4">二维码：{{ item.subtitle }}</v-list-tile-sub-title>
-                  <v-list-tile-sub-title class="text--darken-1 pink--text">&yen;：{{ item.doller }}元/月</v-list-tile-sub-title>
+                  <v-list-tile-title>{{ item.productName }}</v-list-tile-title>
+                  <v-list-tile-sub-title class="grey--text text--darken-4">二维码：{{item.info.codeType.substring(item.info.codeType.indexOf('-')+1)}}</v-list-tile-sub-title>
+                  <v-list-tile-sub-title class="text--darken-1 pink--text">&yen;：{{ item.productPrice }}元/月</v-list-tile-sub-title>
                 </v-list-tile-content>
-                <v-list-tile-action>
-                    <v-list-tile-action-text>{{ item.subtitle }}</v-list-tile-action-text>
-                    <v-btn icon  @click='handleInfoClick(card)'>查看</v-btn>
-                  <v-btn ripple>
-                    {{item.info.qrcode}}
-                  </v-btn>
-                </v-list-tile-action>
+                <v-list-tile-action class='text-xs-right'>
+                  <v-list-tile-action-text><v-icon class="standard grey--text text--lighten-1" style='font-size: 16px;'>   
+                  </style>access_time</v-icon>{{ item.releaseTime }}</v-list-tile-action-text>
+                  <v-list-tile-action-text class='blue--text text--lighten-1' @click='detail(item)'>查看</v-list-tile-action-text>
+                  <v-list-tile-action-text>
+                     <span v-for='elem in item.productType' @click='handleTypeClick(elem, item)' :class='{active: elem.check}'>[{{elem.name}}]</span>
+                  </v-list-tile-action-text>
+                </v-list-tile-action>    
               </v-list-tile>
             </v-list>
             <!-- 小图 -->
             <v-list v-if='!bigOrSmall' two-line subheader>
-              <v-list-tile v-for="item in cardsSmall" v-bind:key="item.title">
+              <v-list-tile v-for="item in cardsSmall" v-bind:key="item.productName">
                 <v-list-tile-avatar>
-                  <v-icon large v-badge="item.badge" @click='handleSmallSelect(item)' class="grey--text text--lighten-1">{{item.icon}}</v-icon>
+                  <v-icon large v-badge="item.badge" @click='handleSmallSelect(item)' class="grey--text text--lighten-1"><img :src="item.productImage"></v-icon>
                 </v-list-tile-avatar>
                 <v-list-tile-content>
-                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                  <v-list-tile-sub-title class="grey--text text--darken-4">二维码：{{ item.subtitle }}</v-list-tile-sub-title>
-                   <v-list-tile-sub-title class="text--darken-1 pink--text">&yen;：{{ item.doller }}元/月</v-list-tile-sub-title>
+                  <v-list-tile-title>{{ item.productName }}</v-list-tile-title>
+                  <v-list-tile-sub-title class="grey--text text--darken-4">二维码：{{item.info.codeType.substring(item.info.codeType.indexOf('-')+1)}}</v-list-tile-sub-title>
+                  <v-list-tile-sub-title class="text--darken-1 pink--text">&yen;：{{ item.productPrice }}元/月</v-list-tile-sub-title>
                 </v-list-tile-content>
-                <v-list-tile-action>
-                 <v-list-tile-action-text>{{ item.subtitle }}</v-list-tile-action-text>
-                  <v-btn icon  @click='handleInfoClick(card)'>查看</v-btn>
-                  <v-btn ripple>
-                    {{item.info.qrcode}}
-                  </v-btn>
-                  <v-btn ripple>
-                    {{item.info.qrcode}}
-                  </v-btn>
-                </v-list-tile-action>
+                <v-list-tile-action class='text-xs-right'>
+                  <v-list-tile-action-text><v-icon class="standard grey--text text--lighten-1" style='font-size: 16px;'>   
+                  </style>access_time</v-icon>{{ item.releaseTime }}</v-list-tile-action-text>
+                  <v-list-tile-action-text class='blue--text text--lighten-1' @click='detail(item)'>查看</v-list-tile-action-text>
+                  <v-list-tile-action-text>
+                     <span v-for='elem in item.productType' @click='handleTypeClick(elem, item)' :class='{active: elem.check}'>[{{elem.name}}]</span>
+                  </v-list-tile-action-text>
+                </v-list-tile-action>       
               </v-list-tile>
             </v-list>
           </v-card-text>
@@ -70,7 +69,7 @@
       </v-tabs-content>
     </v-tabs>
     <v-footer>
-      <v-btn style='margin-left:40%' @click='handleSeletClick'>确定</v-btn>
+      <v-btn block class='blue lighten-1' style='color: #fff' @click='handleSeletClick'>确定</v-btn>
       </div>
     </v-footer>
   </section>
@@ -82,16 +81,63 @@ export default {
     return this.$store.state.shareSpam;
   },
   methods: {
+    detail:function(card){
+         this.$router.push('/share/spam/info', card)
+        // ajaxCommon({
+        //       // 'url': 'refreshImage/list',
+        //       'url': 'static/share/jsons/list.json',
+        //       'param': false,
+        //       'callback': (data) => {
+                  
+        //       }
+        //   });
+    },
      getList : function(){
           ajaxCommon({
-              'url': 'refreshImage/list',
-              'param': {},
+              // 'url': 'refreshImage/list',
+              'url': 'static/share/jsons/list.json',
+              'param': false,
               'callback': (data) => {
-                  console.log(this.list);
-                  this.$store.dispatch('updateCardsList',data.resbody)
+                   for(let item in data.resBody.smaillList){
+                    data.resBody.smaillList[item]['count'] = 0;
+                    data.resBody.smaillList[item]['badge'] = {
+                      value: '',
+                      left: true
+                    };
+                    data.resBody.smaillList[item]['flex'] = 6;
+                    data.resBody.smaillList[item]['check'] = false;
+                    data.resBody.smaillList[item]['flag'] = 'small';
+                    data.resBody.smaillList[item]['productType'] = [{name:'商品', check: true, type:'1'},{name: '个厅', check: false, type:'2'}];
+                    data.resBody.smaillList[item]['info'] = {'codeType': '1-商品'};
+                  }
+                  for(let item in data.resBody.bigList){
+                    data.resBody.bigList[item]['count'] = 0;
+                    data.resBody.bigList[item]['badge'] = {
+                      value: '',
+                      left: true
+                    };
+                    data.resBody.bigList[item]['flex'] = 6;
+                    data.resBody.bigList[item]['check'] = false;
+                    data.resBody.bigList[item]['flag'] = 'big';
+                    data.resBody.bigList[item]['productType'] = [{name:'商品', check: true, type:'1'},{name: '个厅', check: false, type:'2'}];
+                    data.resBody.bigList[item]['info'] = {'codeType': '1-商品'};
+                  }
+                  this.$store.dispatch('updateCardsList',data.resBody)
               }
           });
       },
+      handleTypeClick(elem, card){
+        if(elem.check){
+           return;
+        }else{
+          for(let item of card.productType){
+            item.check = false;
+          }
+          elem.check = !elem.check
+          card.info.codeType =`${elem.type}-${elem.name}`;
+        }
+      },
+
     //处理选择图片完后的 点事件
     handleSeletClick() {
       this.$store.dispatch('pushSelectArr', _selectArr).then(() => {
@@ -106,14 +152,13 @@ export default {
             return;
         }
       if (card.badge.value > 0) {
-        let flag = true;
         console.log(this.lastSelectNum);
         card.badge.value = ''
         card.check = false;
         this.smallCount--;        
         if (card.flag = 'small') {
-          for (var i = 0; i < _selectArr.length; i++) {
-            if (_selectArr[i].title == card.title) {
+          for (let i = 0; i < _selectArr.length; i++) {
+            if (_selectArr[i].productName == card.productName) {
               _selectArr.splice(i, 1);
               i--;
               this.lastSelectNum++;
@@ -138,7 +183,7 @@ export default {
         _selectArr.push(card);
       } else {
         _selectArr.forEach((item, index) => {
-          if (item.title == card.title) {
+          if (item.productName == card.productName) {
             _selectArr.splice(index, 1);
           }
         })
@@ -156,8 +201,8 @@ export default {
         card.check = false;
         this.smallCount--;
         if (card.flag = 'big') {
-          for (var i = 0; i < _selectArr.length; i++) {
-            if (_selectArr[i].title == card.title) {
+          for (let i = 0; i < _selectArr.length; i++) {
+            if (_selectArr[i].productName == card.productName) {
               _selectArr.splice(i, 1);
               i--;
               this.lastSelectNum++;
@@ -182,7 +227,7 @@ export default {
         _selectArr.push(card)
       } else {
         _selectArr.forEach((item, index) => {
-          if (item.title == card.title) {
+          if (item.productName == card.productName) {
             _selectArr.splice(index, 1);
           }
         })
@@ -198,27 +243,20 @@ export default {
       //通过ajax请求数据 填充 this.cardsBig 等数据
       setTimeout(() => {
         this.loading = false;
+        this.getList();
+        console.log(this.lastSelectNum);
       }, 1000)
     }
-     // this.getList();
-      console.log(this.lastSelectNum);
+     
   }
 }
 
 </script>
 <style scoped>
 .footer{
-    width: 100%;
-    padding: 2rem 1rem;
-    left: 0;
     margin-top: 1rem;
-    background-color: #fff;
 }
-
-.footer>button{
-      width: 100%;
-    margin: 0 auto !important;;
-    background-color: #0085d0;
-    color: #fff;
+.active{
+  color: #559ade;
 }
 </style>

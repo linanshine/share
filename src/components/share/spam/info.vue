@@ -17,9 +17,15 @@
 			}
 		},
 		mounted(){
-			this.name=this.$route.query.info.name;
-			this.qrcode=this.$route.query.info.qrcode;
-			this.src=this.$route.query.src;
+			console.log('this.$route.query.='+JSON.stringify(this.$route.query))
+			this.name=this.$route.query.productName;
+			this.qrcode=this.$route.query.info.codeType.substring($route.query.info.codeType.indexOf('-')+1);
+			if(this.$route.query.flag === 'small' ){
+				this.src=this.$route.query.smallPicPath;
+			}else{
+				this.src=this.$route.query.bigPicPath;
+			}
+			
 			console.log(this.$route)
 		}
 	}
