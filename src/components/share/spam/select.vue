@@ -26,11 +26,12 @@
             <v-list v-if='bigOrSmall' two-line subheader>
               <v-list-tile v-for="item in cardsBig" v-bind:key="item.productName">
                 <v-list-tile-avatar>
-                  <v-icon large v-badge="item.badge" @click='handleBigSelect(item)' class="grey--text text--lighten-1"><img :src="item.productImage"></v-icon>
+                  <!-- <v-icon large v-badge="item.badge" @click='handleBigSelect(item)' class="grey--text text--lighten-1"></v-icon> -->
+                  <img :src="item.productImage">
                 </v-list-tile-avatar>
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.productName }}</v-list-tile-title>
-                  <v-list-tile-sub-title class="grey--text text--darken-4">二维码：{{item.info.codeType.substring(item.info.codeType.indexOf('-')+1)}}</v-list-tile-sub-title>
+                  <v-list-tile-sub-title class="grey--text text--darken-4">二维码：{{item.info.name}}</v-list-tile-sub-title>
                   <v-list-tile-sub-title class="text--darken-1 pink--text">&yen;：{{ item.productPrice }}元/月</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action class='text-xs-right'>
@@ -47,11 +48,12 @@
             <v-list v-if='!bigOrSmall' two-line subheader>
               <v-list-tile v-for="item in cardsSmall" v-bind:key="item.productName">
                 <v-list-tile-avatar>
-                  <v-icon large v-badge="item.badge" @click='handleSmallSelect(item)' class="grey--text text--lighten-1"><img :src="item.productImage"></v-icon>
+                  <!-- <v-icon large v-badge="item.badge" @click='handleSmallSelect(item)' class="grey--text text--lighten-1"></v-icon> -->
+                  <img :src="item.productImage">
                 </v-list-tile-avatar>
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.productName }}</v-list-tile-title>
-                  <v-list-tile-sub-title class="grey--text text--darken-4">二维码：{{item.info.codeType.substring(item.info.codeType.indexOf('-')+1)}}</v-list-tile-sub-title>
+                  <v-list-tile-sub-title class="grey--text text--darken-4">二维码：{{item.info.name}}</v-list-tile-sub-title>
                   <v-list-tile-sub-title class="text--darken-1 pink--text">&yen;：{{ item.productPrice }}元/月</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action class='text-xs-right'>
@@ -68,10 +70,9 @@
         </v-card>
       </v-tabs-content>
     </v-tabs>
-    <v-footer>
+   <!--  <v-footer>
       <v-btn block class='blue lighten-1' style='color: #fff' @click='handleSeletClick'>确定</v-btn>
-      </div>
-    </v-footer>
+    </v-footer> -->
   </section>
 </template>
 <script>
@@ -82,15 +83,33 @@ export default {
   },
   methods: {
     detail:function(card){
-         this.$router.push('/share/spam/info', card)
-        // ajaxCommon({
-        //       // 'url': 'refreshImage/list',
-        //       'url': 'static/share/jsons/list.json',
-        //       'param': false,
-        //       'callback': (data) => {
-                  
-        //       }
-        //   });
+      let that = this;
+        // util.showLoadPlug();
+        // leadeon.encryptString({
+        //     str: this.clientObj.phoneNumber,
+        //     success: function (res) {
+              ajaxCommon({
+                // 'url': 'refreshImage/getQrCode',
+                'url': 'static/share/jsons/getQrCode.json',
+                // 'param': {'id':card.id, 'type':card.info.codeType,'enCodePhoneNum': res.encryptString},
+                'param': false,
+                'callback': (data) => {
+                    let param = {
+                      'name': card.productName,
+                      'codeName': card.info.name,
+                      'src': card.picPath,
+                      'qrCode': data.resBody.qrCode,
+                      'infoBackRout': '/share/spam/select',
+                      'flag': card.flag,
+                    }
+                    that.$router.push({path:'/share/spam/info', query:param})
+                }
+              });
+            // },
+            // error: function (res) {
+            //     util.showDialogPlug(res, '好的');
+            // }
+        // });       
     },
      getList : function(){
           ajaxCommon({
@@ -98,31 +117,25 @@ export default {
               'url': 'static/share/jsons/list.json',
               'param': false,
               'callback': (data) => {
-                   for(let item in data.resBody.smaillList){
-                    data.resBody.smaillList[item]['count'] = 0;
-                    data.resBody.smaillList[item]['badge'] = {
+                for(let elem in data.resBody){
+                  for(let item in data.resBody[elem]){
+                    data.resBody[elem][item]['count'] = 0;
+                     data.resBody[elem][item]['badge'] = {
                       value: '',
                       left: true
                     };
-                    data.resBody.smaillList[item]['flex'] = 6;
-                    data.resBody.smaillList[item]['check'] = false;
-                    data.resBody.smaillList[item]['flag'] = 'small';
-                    data.resBody.smaillList[item]['productType'] = [{name:'商品', check: true, type:'1'},{name: '个厅', check: false, type:'2'}];
-                    data.resBody.smaillList[item]['info'] = {'codeType': '1-商品'};
+                    data.resBody[elem][item]['flex'] = 6;
+                    data.resBody[elem][item]['check'] = false;
+                    data.resBody[elem][item]['productType'] = [{name:'商品', check: true, type:'1'},{name: '个厅', check: false, type:'2'}];
+                    data.resBody[elem][item]['info'] = {codeType: '1', name: '商品'};
+                    if(elem.indexOf('small') != -1){
+                      data.resBody[elem][item]['flag'] = 'small';
+                    }else{
+                      data.resBody[elem][item]['flag'] = 'big';
+                    }
                   }
-                  for(let item in data.resBody.bigList){
-                    data.resBody.bigList[item]['count'] = 0;
-                    data.resBody.bigList[item]['badge'] = {
-                      value: '',
-                      left: true
-                    };
-                    data.resBody.bigList[item]['flex'] = 6;
-                    data.resBody.bigList[item]['check'] = false;
-                    data.resBody.bigList[item]['flag'] = 'big';
-                    data.resBody.bigList[item]['productType'] = [{name:'商品', check: true, type:'1'},{name: '个厅', check: false, type:'2'}];
-                    data.resBody.bigList[item]['info'] = {'codeType': '1-商品'};
-                  }
-                  this.$store.dispatch('updateCardsList',data.resBody)
+                }
+                this.$store.dispatch('updateCardsList',data.resBody)
               }
           });
       },
@@ -134,7 +147,8 @@ export default {
             item.check = false;
           }
           elem.check = !elem.check
-          card.info.codeType =`${elem.type}-${elem.name}`;
+          card.info.codeType =elem.type
+          card.info.name =elem.name;
         }
       },
 

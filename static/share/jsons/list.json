@@ -1,13 +1,12 @@
 {
-
   "resCode": "200",
   "resBody":
   {
-    "smaillList": [
+    "smallList": [
     {
       "id": 1,
       "picName": "流量快餐包111",
-      "smallPicPath": "static/share/img/imgad1.png",
+      "picPath": "static/share/img/imgad1.jpg",
       "productName": "流量快餐包111",
       "productImage": "static/share/img/list-Img1.jpg",
       "productPrice": "20",
@@ -16,7 +15,7 @@
     {
       "id": 2,
       "picName": "流量快餐包2222",
-      "smallPicPath": "static/share/img/imgad1.png",
+      "picPath": "static/share/img/imgad1.jpg",
       "productName": "流量快餐包2222",
       "productImage": "static/share/img/list-Img1.jpg",
       "productPrice": "21",
@@ -26,7 +25,7 @@
     {
       "id": 1,
       "picName": "流量快餐包3",
-      "bigPicPath": "static/share/img/imgad1.png",
+      "picPath": "static/share/img/imgad2.jpg",
       "productName": "流量快餐包3",
       "productImage": "static/share/img/list-Img1.jpg",
       "productPrice": "22",
@@ -35,7 +34,7 @@
     {
       "id": 2,
       "picName": "流量快餐包4",
-      "bigPicPath": "static/share/img/imgad1.png",
+      "picPath": "static/share/img/imgad2.jpg",
       "productName": "流量快餐包4",
       "productImage": "static/share/img/list-Img1.jpg",
       "productPrice": "23",

@@ -7,7 +7,9 @@ const shareSpam = {
     bigOrSmall: true,
     loading: true,
     cardsBig: [],
-    cardsSmall: []
+    cardsSmall: [],
+    clientObj:{},
+    infoBackRout:'/share/spam',
   },
   actions: {
     pushSelectArr({ commit }, item) {
@@ -30,6 +32,12 @@ const shareSpam = {
     updateCardsList({ commit }, item) {
       return new Promise((resolve, reject) => {
         commit('updateCardsList', item)
+        resolve()
+      })
+    },
+    getClientObj({ commit }, item){
+      return new Promise((resolve, reject) => {
+        commit('getClientObj', item)
         resolve()
       })
     }
@@ -65,7 +73,10 @@ const shareSpam = {
     },
     updateCardsList(state, obj) {
       state.cardsBig = [...obj.bigList];
-      state.cardsSmall = [...obj.smaillList];
+      state.cardsSmall = [...obj.smallList];
+    },
+    getClientObj(state, obj) {
+      state.clientObj = obj;
     },
   }
 }

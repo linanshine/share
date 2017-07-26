@@ -26,7 +26,31 @@
 			return this.$store.state
 		},
     mounted(){
-
+      let that = this;
+      // setTimeout(function () {
+      //   leadeon.userStatus({
+      //     success: function (data) {
+      //       let status = data.status; // 状态：0未登录；1服务密码登录；2短信验证码登录
+      //       if (status == '0') {
+      //           leadeon.showLogin();
+      //       } else {
+      //         leadeon.getUserInfo({
+      //           success: function (data) {
+      //               data.token = util.removeSpace(data.token);
+      //               ojsons = data;
+      //               that.clientObj = data;
+      //           },
+      //           error: function (data) {
+      //               util.showDialogPlug(data, '知道了')
+      //           }
+      //         })
+      //       }
+      //     },
+      //     error: function (data) {
+      //         util.showDialogPlug(data, '知道了')
+      //     }
+      //   })
+      // }, 500);
     }
 	}
 </script>

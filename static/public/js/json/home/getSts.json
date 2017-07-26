@@ -1,0 +1,10 @@
+{
+  "resCode":"200",
+  "resBody":
+  {
+    "score":"2001",
+    "btn0":"true",
+    "btn1":"true" ,
+    "btn2":"false"
+  }
+}

@@ -16,13 +16,13 @@
           </v-card-text>
           <v-container fluid grid-list-md class="grey lighten-4">
             <v-layout row wrap>
-              <v-flex v-bind="{ [`xs${card.flex}`]: true }" v-for="card in selectArr" :key="card.title">
+              <v-flex v-bind="{ [`xs${card.flex}`]: true }" v-for="card in selectArr" :key="card.productName">
                 <v-card>
                   <v-card-media :src="card.src" height="150px">
                        <v-container fill-height fluid>
                           <v-layout fill-height>
                             <v-flex xs12 align-start flexbox>
-                              <span class=" white--text" v-text="card.title"></span>
+                              <span class=" white--text" v-text="card.productName"></span>
                             </v-flex>
                           </v-layout>
                         </v-container>
@@ -43,9 +43,8 @@
         </v-card>
       </v-flex>
     </v-layout>
-     <v-footer>
-      <v-btn style='margin-left:40%' @click='handleShareClike' >立刻分享</v-btn>
-      </div>
+    <v-footer>
+      <v-btn block class='blue lighten-1' style='color: #fff' @click='handleShareClike'>立刻分享</v-btn>
     </v-footer>
   </v-container>
 </template>
@@ -57,6 +56,7 @@ export default {
 
   methods: {
     handleInfoClick(card){
+      card.infoBackRout = '/share/spam';
       this.$router.push({path:'/share/spam/info',query:card})
     },
     handleDeleteClick(card){
@@ -69,23 +69,23 @@ export default {
         return;
       }
       leadeon.enableShared({
-                debug: false,
-                enable: true,
-                shareObj: {
-                    title: '模块一分享',
-                    link: "",
-                    imgUrl: "",
-                    content:"",
-                    type: '',
-                    dataUrl: ''
-                },
-                success: function (res) {
-                    return;
-                },
-                error: function (res) {
-                    return;
-                }
-            })
+          debug: false,
+          enable: true,
+          shareObj: {
+              title: '模块一分享',
+              link: "",
+              imgUrl: "",
+              content:"",
+              type: '',
+              dataUrl: ''
+          },
+          success: function (res) {
+              return;
+          },
+          error: function (res) {
+              return;
+          }
+      })
     },
     handleAdd() {
       this.$router.push('/share/spam/select')

@@ -9,7 +9,7 @@ const store = new Vuex.Store({
   state: {
     indexArr: [{
         text: '分享刷屏图',
-        route: '/share/spam'
+        route: '/share/spam/select'
       },
       {
         text: '分享聚合页',
